@@ -10,7 +10,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import { ModalBlock } from '../components/Modal';
+import { ModalBlock } from '../components/ModalBlock';
 
 export const useStylesSignIn = makeStyles((theme) => ({
   wrapper: {
