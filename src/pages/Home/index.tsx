@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -8,6 +9,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
 import AddPersonIcon from '@material-ui/icons/GroupAddOutlined';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { Tweet } from '../../components/Tweet';
 import { SideMenu } from '../../components/SideMenu';
@@ -17,8 +19,18 @@ import { useHomeStyles } from './theme';
 import { SearchTextField } from '../../components/SearchTextField';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 
+import { fetchTweets } from '../../store/ducks/tweets/actionCreators';
+import { selectIsTweetsLoading, selectTweetsItems } from '../../store/ducks/tweets/selectors';
+
 export const Home = (): React.ReactElement => {
   const classes = useHomeStyles();
+  const dispatch = useDispatch();
+  const tweets = useSelector(selectTweetsItems);
+  const isLoading = useSelector(selectIsTweetsLoading);
+
+  React.useEffect(() => {
+    dispatch(fetchTweets());
+  }, [dispatch]);
 
   return (
     <Container disableGutters={true} className={classes.wrapper} maxWidth="lg">
@@ -37,17 +49,14 @@ export const Home = (): React.ReactElement => {
             <div className={classes.bottomLine}></div>
           </div>
 
-          {new Array(8).fill(
-            <Tweet
-              text="Lorem ipsum omnis perspiciatis dolor consequuntur ipsum omnis perspiciatis dolor consequuntur ipsum omnis perspiciatis dolor consequuntur ipsum omnis perspiciatis dolor consequuntur quia amet officiis quaerat velit."
-              classes={classes}
-              user={{
-                fullname: 'Alexandr Makedonskiy',
-                username: 'sanekmakedonskiy356',
-                avatarUrl:
-                  'https://images.unsplash.com/photo-1561948955-570b270e7c36?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=518&q=80',
-              }}
-            />,
+          {isLoading ? (
+            <div className={classes.tweetsCentered}>
+              <CircularProgress />
+            </div>
+          ) : (
+            tweets.map((tweet) => (
+              <Tweet key={tweet._id} text={tweet.text} classes={classes} user={tweet.user} />
+            ))
           )}
         </Paper>
       </div>

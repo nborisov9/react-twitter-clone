@@ -108,6 +108,10 @@ export const useHomeStyles = makeStyles((theme) => ({
       background: 'rgb(245, 248, 250)',
     },
   },
+  tweetsCentered: {
+    marginTop: 50,
+    textAlign: 'center',
+  },
   hiddenCreateIcon: {
     borderRadius: 20,
     color: '#fff',
