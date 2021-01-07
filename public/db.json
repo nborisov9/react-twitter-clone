@@ -1,0 +1,89 @@
+{
+  "tweets": [
+    {
+      "id": 1,
+      "_id": "5f625ff6bd97609c6925e2b4",
+      "text": "test text",
+      "user": {
+        "fullname": "test fullname",
+        "username": "testusername",
+        "avatarUrl": "https://source.unsplash.com/random/100x100?3"
+      }
+    },
+    {
+      "_id": "l54oy0qdxvi",
+      "text": "TWEET",
+      "user": {
+        "fullname": "TESTfullnameTEST",
+        "username": "TESTusenameTEST",
+        "avatarUrl": "https://source.unsplash.com/random/100x100?3"
+      },
+      "id": 5
+    },
+    {
+      "_id": "hc168njjm0t",
+      "text": "TWEET",
+      "user": {
+        "fullname": "TESTfullnameTEST",
+        "username": "TESTusenameTEST",
+        "avatarUrl": "https://source.unsplash.com/random/100x100?3"
+      },
+      "id": 6
+    },
+    {
+      "_id": "g17njzymsfw",
+      "text": "1",
+      "user": {
+        "fullname": "TESTfullnameTEST",
+        "username": "TESTusenameTEST",
+        "avatarUrl": "https://source.unsplash.com/random/100x100?3"
+      },
+      "id": 7
+    }
+  ],
+  "themes": [
+    {
+      "_id": "432f625ff6bd97609c6925e2b4",
+      "name": "#Навальный",
+      "count": 2332
+    },
+    {
+      "_id": "1309f625ff6bd97609c6925e2b4",
+      "name": "#Russianhistory",
+      "count": 10132
+    },
+    {
+      "_id": "544f6255f86f6bd97609c6925e2b4",
+      "name": "#Гитлер",
+      "count": 2331
+    },
+    {
+      "_id": "51999f625ff6bd64463697609c6925e2b4",
+      "name": "#Беларусь",
+      "count": 5646
+    }
+  ],
+  "users": [
+    {
+      "fullname": "Dickerson Mcleod",
+      "username": "kirk",
+      "avatarUrl": "https://source.unsplash.com/random/100x100?3"
+    },
+    {
+      "fullname": "Mcneil Herring",
+      "username": "mueller",
+      "avatarUrl": "https://source.unsplash.com/random/100x100?5"
+    },
+    {
+      "fullname": "Hopkins Ortiz",
+      "username": "noelle",
+      "avatarUrl": "https://source.unsplash.com/random/100x100?1"
+    }
+  ],
+  "user": {
+    "_id": "5f625ff6bd97609c6925e2b4",
+    "fullname": "Nikita Borisov",
+    "username": "borisov9",
+    "avatarUrl": "https://source.unsplash.com/random/100x100?3"
+  }
+}

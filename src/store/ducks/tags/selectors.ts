@@ -1,20 +1,20 @@
 import { createSelector } from 'reselect';
 
 import { RootState } from '../../store';
-import { LoadingState, TweetsState } from './contracts/state';
+import { LoadingState, TagsState } from './contracts/state';
 
-export const selectTweets = (state: RootState): TweetsState => state.tweets;
+export const selectTags = (state: RootState): TagsState => state.tags;
 
 export const selectLoadingState = (state: RootState): LoadingState =>
-  selectTweets(state).LoadingState;
+  selectTags(state).LoadingState;
 
-export const selectIsTweetsLoading = (state: RootState): boolean =>
+export const selectIsTagsLoading = (state: RootState): boolean =>
   selectLoadingState(state) === LoadingState.LOADING;
 
-export const selectIsTweetsLoaded = (state: RootState): boolean =>
+export const selectIsTagsLoaded = (state: RootState): boolean =>
   selectLoadingState(state) === LoadingState.LOADED;
 
-export const selectTweetsItems = createSelector(selectTweets, (tweets) => tweets.items);
+export const selectTagsItems = createSelector(selectTags, (tags) => tags.items);
 
 // ============
 // если состояние твитов изменилось createSelector вернет актуальнуюю ссылку на данные

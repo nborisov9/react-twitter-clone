@@ -9,6 +9,7 @@ import BookmarkIcon from '@material-ui/icons/BookmarkBorder';
 import ListIcon from '@material-ui/icons/ListAlt';
 import UserIcon from '@material-ui/icons/PersonOutline';
 import CreateIcon from '@material-ui/icons/Create';
+import { Link } from 'react-router-dom';
 
 import { useHomeStyles } from '../pages/Home/theme';
 import { ModalBlock } from './ModalBlock';
@@ -34,9 +35,11 @@ export const SideMenu: React.FC<SideMenuProps> = ({
   return (
     <ul className={classes.sideMenuList}>
       <li className={classes.sideMenuListItem}>
-        <IconButton className={classes.logo} color="primary">
-          <TwitterIcon color="primary" className={classes.logoIcon} />
-        </IconButton>
+        <Link to="/home">
+          <IconButton className={classes.logo} color="primary">
+            <TwitterIcon color="primary" className={classes.logoIcon} />
+          </IconButton>
+        </Link>
       </li>
       <li className={classes.sideMenuListItem}>
         <div>

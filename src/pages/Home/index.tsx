@@ -1,15 +1,14 @@
 import React from 'react';
-import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Avatar from '@material-ui/core/Avatar';
 import SearchIcon from '@material-ui/icons/Search';
-import AddPersonIcon from '@material-ui/icons/GroupAddOutlined';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Route } from 'react-router-dom';
+import classNames from 'classnames';
 
 import { Tweet } from '../../components/Tweet';
 import { SideMenu } from '../../components/SideMenu';
@@ -17,10 +16,13 @@ import { AddTweetForm } from '../../components/AddTweetForm';
 
 import { useHomeStyles } from './theme';
 import { SearchTextField } from '../../components/SearchTextField';
-import IconButton from '@material-ui/core/IconButton/IconButton';
 
 import { fetchTweets } from '../../store/ducks/tweets/actionCreators';
+import { fetchTags } from '../../store/ducks/tags/actionCreators';
 import { selectIsTweetsLoading, selectTweetsItems } from '../../store/ducks/tweets/selectors';
+import { Tags } from '../../components/Tags';
+import { BackButton } from '../../components/BackButton';
+import { FullTweet } from './components/FullTweet';
 
 export const Home = (): React.ReactElement => {
   const classes = useHomeStyles();
@@ -30,6 +32,7 @@ export const Home = (): React.ReactElement => {
 
   React.useEffect(() => {
     dispatch(fetchTweets());
+    dispatch(fetchTags());
   }, [dispatch]);
 
   return (
@@ -38,29 +41,44 @@ export const Home = (): React.ReactElement => {
         <SideMenu classes={classes} />
       </div>
 
-      <div>
-        <Paper className={classes.tweetsWrapper} variant="outlined">
-          <Paper className={classes.tweetsHedaer} variant="outlined">
-            <Typography variant="h6">Главная</Typography>
+      <div className={classes.tweetsWrapper}>
+        <Paper className={classes.tweetsContainer} variant="outlined">
+          <Paper
+            className={classNames(classes.tweetsHedaer, classes.tweetsTitleHeader)}
+            variant="outlined">
+            <Route path="/home/:any">
+              <BackButton />
+            </Route>
+
+            <Route exact path={['/home', '/home/search']}>
+              <Typography variant="h6">Твиты</Typography>
+            </Route>
+
+            <Route exact path="/home/tweet/:id">
+              <Typography variant="h6">Твитнуть</Typography>
+            </Route>
           </Paper>
 
-          <div>
-            <AddTweetForm classes={classes} />
-            <div className={classes.bottomLine}></div>
-          </div>
-
-          {isLoading ? (
-            <div className={classes.tweetsCentered}>
-              <CircularProgress />
+          <Route exact path={['/home', '/home/search']}>
+            <div>
+              <AddTweetForm classes={classes} />
+              <div className={classes.bottomLine}></div>
             </div>
-          ) : (
-            tweets.map((tweet) => (
-              <Tweet key={tweet._id} text={tweet.text} classes={classes} user={tweet.user} />
-            ))
-          )}
+          </Route>
+
+          <Route exact path="/home">
+            {isLoading ? (
+              <div className={classes.tweetsCentered}>
+                <CircularProgress />
+              </div>
+            ) : (
+              tweets.map((tweet) => <Tweet key={tweet._id} classes={classes} {...tweet} />)
+            )}
+          </Route>
+
+          <Route exact path="/home/tweet/:id" component={FullTweet} />
         </Paper>
       </div>
-
       <div className={classes.rightBlockWrapper}>
         <SearchTextField
           className={classes.inputSearch}
@@ -75,45 +93,7 @@ export const Home = (): React.ReactElement => {
           }}
           fullWidth
         />
-        <Paper className={classes.currentTopicsContainer} variant="outlined">
-          <Paper className={classes.currentTopics} variant="outlined">
-            Актуальные темы
-          </Paper>
-          <Paper className={classes.currentTopics} variant="outlined">
-            Казань
-            <span>Твитов: 213213 </span>
-          </Paper>
-          <Paper className={classes.currentTopics} variant="outlined">
-            #Навальный
-            <span>Твитов: 213213 </span>
-          </Paper>
-          <Paper className={classes.currentTopics} variant="outlined">
-            #Коронавирус
-            <span>Твитов: 213213 </span>
-          </Paper>
-        </Paper>
-        <div className={classes.personInfoContainer}>
-          <Paper className={classes.currentTopics} variant="outlined">
-            Кого читать
-          </Paper>
-          <Paper
-            className={classNames(classes.currentTopics, classes.topicsPerson)}
-            variant="outlined">
-            <div>
-              <Avatar
-                alt="Аватарка"
-                src="https://sun9-28.userapi.com/impf/c857432/v857432329/c9fc6/2D3addxwlzg.jpg?size=1600x1066&quality=96&proxy=1&sign=120473f924e667b5bdb8e1a1fca12faf&type=album"
-              />
-            </div>
-            <div className={classes.topicsAllInfoPerson}>
-              nastenka
-              <span>@NastyaMladsheva</span>
-            </div>
-            <IconButton>
-              <AddPersonIcon color="primary" />
-            </IconButton>
-          </Paper>
-        </div>
+        <Tags classes={classes} />
       </div>
     </Container>
   );

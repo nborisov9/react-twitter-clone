@@ -1,32 +1,13 @@
-import { Action } from 'redux';
+import {
+  AddTweetActionInterface,
+  FetchAddTweetActionInterface,
+  FetchTweetsActionInterface,
+  SetTweetsActionInterface,
+  SetTweetsLoadingStateActionInterface,
+  TweetActionsType,
+} from './contracts/ActionTypes';
 
-import { LoadingState, TweetsState } from './contracts/state';
-
-export enum TweetActionsType {
-  SET_TWEETS = 'tweets/SET_TWEETS',
-  FETCH_TWEETS = 'tweets/FETCH_TWEETS',
-  SET_LOADING_STATE = 'tweets/SET_LOADING_STATE',
-}
-
-// Наследование от Action говорит, что ключ type должен называться type и не инчае
-export interface SetTweetsActionInterface extends Action<TweetActionsType> {
-  type: TweetActionsType.SET_TWEETS;
-  payload: TweetsState['items'];
-}
-
-export interface FetchTweetsActionInterface extends Action<TweetActionsType> {
-  type: TweetActionsType.FETCH_TWEETS;
-}
-
-export interface SetTweetsLoadingStateActionInterface extends Action<TweetActionsType> {
-  type: TweetActionsType.SET_LOADING_STATE;
-  payload: LoadingState;
-}
-
-export const setTweets = (payload: TweetsState['items']): SetTweetsActionInterface => ({
-  type: TweetActionsType.SET_TWEETS,
-  payload,
-});
+import { LoadingState, Tweet, TweetsState } from './contracts/state';
 
 export const setTweetsLoadingState = (
   payload: LoadingState,
@@ -37,6 +18,21 @@ export const setTweetsLoadingState = (
 
 export const fetchTweets = (): FetchTweetsActionInterface => ({
   type: TweetActionsType.FETCH_TWEETS,
+});
+
+export const setTweets = (payload: TweetsState['items']): SetTweetsActionInterface => ({
+  type: TweetActionsType.SET_TWEETS,
+  payload,
+});
+
+export const fetchAddTweet = (payload: string): FetchAddTweetActionInterface => ({
+  type: TweetActionsType.FETCH_ADD_TWEET,
+  payload,
+});
+
+export const addTweet = (payload: Tweet): AddTweetActionInterface => ({
+  type: TweetActionsType.ADD_TWEET,
+  payload,
 });
 
 export type TweetsActions =

@@ -12,13 +12,24 @@ export const useHomeStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
+  sideMenuWrapper: {
+    flex: '0 1 25%',
+  },
+  tweetsWrapper: {
+    flex: '0 1 50%',
+  },
   rightBlockWrapper: {
+    flex: '0 1 25%',
     marginLeft: 26,
     position: 'sticky',
     top: 0,
   },
-  sideMenuWrapper: {
-    marginRight: 26,
+  tweetsContainer: {
+    borderRadius: 0,
+    height: '100%',
+    width: '100%',
+    borderTop: 0,
+    borderBottom: 0,
   },
   sideMenuList: {
     padding: 0,
@@ -63,12 +74,6 @@ export const useHomeStyles = makeStyles((theme) => ({
     padding: theme.spacing(3.2),
     marginTop: theme.spacing(2),
   },
-  tweetsWrapper: {
-    borderRadius: 0,
-    height: '100%',
-    borderTop: 0,
-    borderBottom: 0,
-  },
   tweetsHedaer: {
     borderTop: 0,
     borderRight: 0,
@@ -76,10 +81,15 @@ export const useHomeStyles = makeStyles((theme) => ({
     borderRadius: 0,
     padding: '10px 0px 10px 16px',
     display: 'flex',
+    alignItems: 'flex-start',
 
     '& h6': {
       fontWeight: 800,
     },
+  },
+  tweetsTitleHeader: {
+    display: 'flex',
+    alignItems: 'center',
   },
   tweetUserName: {
     color: '#ADA9AA',
@@ -173,7 +183,7 @@ export const useHomeStyles = makeStyles((theme) => ({
     borderRadius: '10px',
     borderColor: 'transparent',
     marginTop: 25,
-    height: 240,
+    padding: '10px 0',
     position: 'sticky',
     top: 90,
   },
@@ -195,16 +205,20 @@ export const useHomeStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     backgroundColor: 'rgb(246,247,250)',
 
-    '&:first-child': {
-      fontSize: 19,
-      fontWeight: 800,
-      height: 40,
-    },
-
     '& span': {
       fontWeight: 400,
       fontSize: 15,
       color: 'rgb(174,175,178)',
+    },
+
+    '&:hover': {
+      backgroundColor: '#EEF1F6',
+    },
+  },
+  titleCurrentTopics: {
+    fontWeight: 800,
+    '&:hover': {
+      backgroundColor: 'rgb(246,247,250)',
     },
   },
   topicsPerson: {

@@ -6,10 +6,11 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ImageIcon from '@material-ui/icons/ImageOutlined';
 import SmileIcon from '@material-ui/icons/SentimentSatisfiedOutlined';
-
 import IconButton from '@material-ui/core/IconButton';
+import { useDispatch } from 'react-redux';
 
 import { useHomeStyles } from '../pages/Home/theme';
+import { fetchAddTweet } from '../store/ducks/tweets/actionCreators';
 
 interface AddTweetFormProps {
   classes: ReturnType<typeof useHomeStyles>;
@@ -22,6 +23,8 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({
   classes,
   rowsMax = 7,
 }: AddTweetFormProps): React.ReactElement => {
+  const dispatch = useDispatch();
+
   const [text, setText] = React.useState<string>('');
   const textLimitPercent = (text.length / MAX_LENGTH) * 100;
   const textCount = MAX_LENGTH - text.length;
@@ -34,6 +37,7 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({
   };
 
   const handleClickAddTweet = (): void => {
+    dispatch(fetchAddTweet(text));
     setText('');
   };
 
@@ -73,9 +77,7 @@ export const AddTweetForm: React.FC<AddTweetFormProps> = ({
                   size={20}
                   thickness={5}
                   value={currentLengthText >= MAX_LENGTH ? 100 : textLimitPercent}
-                  style={
-                    currentLengthText >= MAX_LENGTH ? { color: '#f44336' } : undefined
-                  }
+                  style={currentLengthText >= MAX_LENGTH ? { color: '#f44336' } : undefined}
                 />
                 <CircularProgress
                   style={{ color: 'rgba(0,0,0, 0.1)' }}
